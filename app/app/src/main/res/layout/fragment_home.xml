@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/main_title"
-            android:textSize="34sp"
+            android:textSize="28sp"
             android:textStyle="italic"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
@@ -24,13 +24,13 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="50sp"
             />
 
         <ImageView
             android:id="@+id/main_pomodoro_image"
-            android:layout_width="280sp"
-            android:layout_height="280sp"
+            android:layout_width="200sp"
+            android:layout_height="200sp"
             android:src="@drawable/ic_pomodoro_girare"
             android:contentDescription="@string/main_image_desc"
             android:layout_gravity="center_horizontal"
@@ -40,7 +40,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="50sp"
             />
 
         <TextView
@@ -48,13 +48,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_timer"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:padding="30sp"
+            android:padding="15sp"
             android:background="@drawable/rectangle_gradient"
             />
 
@@ -63,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="40sp"
+            android:textSize="24sp"
+            android:text="@string/empty"
             />
 
     </LinearLayout>
