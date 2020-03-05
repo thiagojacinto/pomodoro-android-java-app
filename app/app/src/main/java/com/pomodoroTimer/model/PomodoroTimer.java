@@ -7,7 +7,7 @@ public class PomodoroTimer {
     // Attributes
     private long id;
     private String label, duration;
-    private String DEFAULT_25_MINUTES = "25";
+    private static final String DEFAULT_25_MINUTES = "25";
 
     // Constructor:
     //
@@ -30,8 +30,8 @@ public class PomodoroTimer {
     // (c) empty
     public PomodoroTimer() {
         this.id = new Random().nextLong()*10000L;
-        this.label = "Random Timer";
-        this.duration = DEFAULT_25_MINUTES;
+        this.label = "Default Timer";
+        this.duration = getDEFAULT_25_MINUTES();
     }
 
     // GETTERS
@@ -46,5 +46,9 @@ public class PomodoroTimer {
 
     public long getId() {
         return id;
+    }
+
+    public String getDEFAULT_25_MINUTES() {
+        return DEFAULT_25_MINUTES;
     }
 }
