@@ -1,4 +1,4 @@
-package com.pomodoroTimer;
+package com.litepomodoroapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.pomodoroTimer", appContext.getPackageName());
+        assertEquals("com.litepomodoroapp", appContext.getPackageName());
     }
 }
