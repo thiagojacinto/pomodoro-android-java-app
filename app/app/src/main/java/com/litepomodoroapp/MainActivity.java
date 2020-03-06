@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public enum TimerState {
         Running, Paused, Stopped;
     }
-    private Timer countdownTimer;
+    private CountDownTimer countdownTimer;
     private long timerLengthSeconds = 0L;
     private TimerState timerState = TimerState.Stopped;
 
@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Set title inside ActionBar
-        getSupportActionBar().setTitle("@string/app_name");
 
         progressBar = findViewById(R.id.progress_countdown);
         tvCountdown = findViewById(R.id.tv_timer_countdown);
@@ -135,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTimer() {
         timerState = TimerState.Running;
-
         CountDownTimer timer = new CountDownTimer(secondsRemaining * 1000, 1000) {
 
             @Override
@@ -149,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
                 onTimerFinished();
             }
         }.start();
+
+        countdownTimer = timer;
     }
 
     private void setNewTimerLength(){
@@ -171,13 +170,17 @@ public class MainActivity extends AppCompatActivity {
         String updatedSeconds = (secondsString.length() == 2) ?
                 secondsString
                 : "0" + secondsString;
-        String updatedTime = minutesUntilFinished + " : " + updatedSeconds;
+        String updatedTime = minutesUntilFinished + ":" + updatedSeconds;
 
         tvCountdown.setText(updatedTime);
         progressBar.setProgress((int) (timerLengthSeconds - secondsRemaining));
     }
 
     private void updateButtons() {
+
+        buttonStop = findViewById(R.id.button_stop);
+        buttonStart = findViewById(R.id.button_play);
+        buttonPause = findViewById(R.id.button_pause);
 
         switch (timerState) {
             case Running:
