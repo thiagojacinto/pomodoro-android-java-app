@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">LitePomodoroApp</string>
+    <string name="app_name">PomodoroTimerApp</string>
+    <string name="title_home">Pomodoro</string>
+    <string name="title_dashboard">History</string>
+    <string name="main_title">Go, Pomodoro!</string>
+    <string name="main_image_desc">Pomodoro timer</string>
+    <string name="start_timer">Start</string>
+    <string name="hist_title">This is what you\'ve done... </string>
+    <string name="clear_all_button">Clear history</string>
+    <string name="empty"> </string>
+    <string name="delete">Remove</string>
+    <string name="delete_confirm">Confirm if you want to DELETE this item</string>
 </resources>
