@@ -10,7 +10,7 @@ public class PrefUtil {
 
     public static int getTimerLength(Context context) {
         //TODO add functionality to runs Countdown @ background
-        return 1;
+        return 25;
     }
 
     private static final String PREVIOUS_TIMER_LENGTH_SECONDS_ID = "com.litepomodoroapp.previous_timer_length_seconds_id";
@@ -56,5 +56,19 @@ public class PrefUtil {
         editor.putLong(SECONDS_REMAINING, seconds);
         editor.apply();
 
+    }
+    // BACKGROUND HANDLING:
+
+    private static String ALARM_SET_TIME_ID = "com.litepomodoroapp.timer.background_time";
+
+    public static long getAlarmSetTime(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getLong(ALARM_SET_TIME_ID, 0);
+    }
+
+    public static void setAlarmSetTime(long time, Context context) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putLong(ALARM_SET_TIME_ID, time);
+        editor.apply();
     }
 }
