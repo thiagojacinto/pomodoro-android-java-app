@@ -2,6 +2,11 @@ package com.litepomodoroapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -10,7 +15,7 @@ import android.widget.TextView;
 
 import com.litepomodoroapp.utils.PrefUtil;
 
-import java.util.Timer;
+import java.util.Calendar;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
@@ -75,9 +80,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        startTimer();
+        initTimer();
 
-        //TODO: remove background timer + hide notification
+        //TODO: hide notification
+
+        // Removing alarm
+        removeAlarm(this);
     }
 
     @Override
@@ -86,7 +94,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (timerState == TimerState.Running) {
             countdownTimer.cancel();
-            //TODO: start background timer + show notification
+
+            // background handling
+            long wakeUpTime = setAlarm(this, nowSeconds, secondsRemaining);
+            //TODO: show notification
         } else if (timerState == TimerState.Paused) {
             //TODO: just show notification when paused
         }
@@ -110,9 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 (timerState == TimerState.Running || timerState == TimerState.Paused) ?
                         PrefUtil.getSecondsRemaining(this)
                         : timerLengthSeconds;
-        //TODO: change secondsRemaining according to where background timer stopped;
 
-        if (timerState == TimerState.Running) startTimer();
+        //TODO: change secondsRemaining according to where background timer stopped;
+        long alarmSetTime = PrefUtil.getAlarmSetTime(this);
+        if (alarmSetTime > 0) {
+            secondsRemaining -= nowSeconds - alarmSetTime;
+        }
+        if (secondsRemaining <= 0) {
+            onTimerFinished();
+        } else if (timerState == TimerState.Running) { startTimer(); }
 
         updateButtons();
         updateCountdownUI();
@@ -133,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTimer() {
         timerState = TimerState.Running;
-        CountDownTimer timer = new CountDownTimer(secondsRemaining * 1000, 1000) {
+        countdownTimer = new CountDownTimer(secondsRemaining * 1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -146,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 onTimerFinished();
             }
         }.start();
-
-        countdownTimer = timer;
     }
 
     private void setNewTimerLength(){
@@ -200,5 +215,38 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    /*
+     -> BACKGROUND ACTIVITIES
+    */
+
+    public static long nowSeconds = Calendar.getInstance().getTimeInMillis() / 1000;
+
+    public static long setAlarm(Context context, long nowSeconds, long secondsRemaining) {
+        long wakeUpTime = (nowSeconds + secondsRemaining) * 1000;
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        // Intent to specifies what is going to do when alarm goes off
+        Intent afterAlarm = new Intent(context, TimeReceiver.class);
+        // Pending Intent
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, afterAlarm, 0);
+
+        // Sets alarm
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent);
+        }
+
+        PrefUtil.setAlarmSetTime(nowSeconds, context);
+        return wakeUpTime;
+    }
+
+    public static void removeAlarm(Context context){
+        Intent removeAlarmIntent = new Intent(context, TimeReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, removeAlarmIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        PrefUtil.setAlarmSetTime(0, context);   // 0 => alarm is NOT set;
     }
 }
