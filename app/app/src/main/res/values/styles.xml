@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SettingsLayoutTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">25dp</item>
+    </style>
+
 </resources>

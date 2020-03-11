@@ -10,4 +10,6 @@
     <string name="empty"> </string>
     <string name="delete">Remove</string>
     <string name="delete_confirm">Confirm if you want to DELETE this item</string>
+    <string name="settings">Settings</string>
+    <string name="button_back">back</string>
 </resources>
