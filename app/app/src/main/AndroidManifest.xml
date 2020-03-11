@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.litepomodoroapp">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_pomodoro_rings"
@@ -9,10 +10,12 @@
         android:roundIcon="@drawable/ic_pomodoro_rings"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SettingsActivity"></activity>
+
         <receiver
             android:name=".TimeReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
