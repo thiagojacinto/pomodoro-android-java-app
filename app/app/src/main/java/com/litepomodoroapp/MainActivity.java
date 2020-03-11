@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button buttonStart, buttonPause, buttonStop;
+    Button buttonStart, buttonPause, buttonStop, buttonSettings;
     TextView tvCountdown;
     MaterialProgressBar progressBar;
 
@@ -42,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress_countdown);
         tvCountdown = findViewById(R.id.tv_timer_countdown);
+        buttonSettings = findViewById(R.id.button_settings);
+
+        // clicking on SETTINGS
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSettingsIntent = new Intent(
+                        MainActivity.this,
+                        SettingsActivity.class
+                );
+
+                startActivity(goToSettingsIntent);
+            }
+        });
 
         // clicking in START
         buttonStart = findViewById(R.id.button_play);
@@ -143,6 +159,12 @@ public class MainActivity extends AppCompatActivity {
 
         PrefUtil.setSecondsRemaining(timerLengthSeconds, this);
         secondsRemaining = timerLengthSeconds;
+
+        // Starts vibrating
+        Vibrator vibrateNow = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (vibrateNow.hasVibrator()) vibrateNow.vibrate(3000);
+        Log.d("Log", "onTimerFinished: starts vibrating now...");
+        vibrateNow.cancel();    // Stops vibration
 
         updateButtons();
         updateCountdownUI();
