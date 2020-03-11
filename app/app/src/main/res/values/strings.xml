@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PomodoroTimerApp</string>
+    <string name="app_name">Pomodoro!</string>
     <string name="title_home">Pomodoro</string>
     <string name="title_dashboard">History</string>
     <string name="main_title">Go, Pomodoro!</string>
@@ -10,4 +10,6 @@
     <string name="empty"> </string>
     <string name="delete">Remove</string>
     <string name="delete_confirm">Confirm if you want to DELETE this item</string>
+    <string name="settings">Settings</string>
+    <string name="button_back">back</string>
 </resources>

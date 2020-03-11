@@ -1,4 +1,4 @@
-package com.pomodoroTimer;
+package com.litepomodoroapp;
 
 import org.junit.Test;
 

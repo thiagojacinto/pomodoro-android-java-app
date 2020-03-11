@@ -2,36 +2,100 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:paddingTop="15dp"
-    android:background="@drawable/gradient_bg"
+    tools:context=".MainActivity"
+    android:background="@drawable/light_rectangle_gradient"
     >
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_timer_countdown"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/rectangle_gradient"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        />
-
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation"
+        tools:text="20:43" />
+
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progress_countdown"
+        style="@style/Widget.MaterialProgressBar.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="380dp"
+        android:minHeight="380dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:padding="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button_pause"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_pause"
+            tools:text="@string/empty" />
+
+        <Space
+            android:layout_width="15sp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button_play"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_pomodoro_girare"
+            tools:text="@string/start_timer" />
+
+        <Space
+            android:layout_width="15sp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button_stop"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_restore"
+            tools:text="@string/empty" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/progress_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp"
+        android:background="@drawable/light_grey_rectangle"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
