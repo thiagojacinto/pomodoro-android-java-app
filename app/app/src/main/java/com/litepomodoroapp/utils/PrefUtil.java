@@ -8,10 +8,18 @@ import com.litepomodoroapp.MainActivity;
 
 public class PrefUtil {
 
+//    public static int getTimerLength(Context context) {
+//        return 25;
+//    }
+
+    private static final String TIMER_LENGTH_ID = "com.litepomodoroapp.timer.timer_length";
+    private static final int TIMER_DEFAULT_VALUE = 25;
+
     public static int getTimerLength(Context context) {
-        //TODO add functionality to runs Countdown @ background
-        return 25;
+        SharedPreferences preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(TIMER_LENGTH_ID, TIMER_DEFAULT_VALUE);
     }
+
 
     private static final String PREVIOUS_TIMER_LENGTH_SECONDS_ID = "com.litepomodoroapp.previous_timer_length_seconds_id";
 
